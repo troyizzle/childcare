@@ -22,7 +22,7 @@ const defineConfig = (_ctx: ConfigContext): ExpoConfig => ({
   ios: {
     supportsTablet: true,
     bundleIdentifier: "com.troyizzle.daycare",
-    buildNumber: "26.0.0"
+    buildNumber: "28.0.0"
   },
   android: {
     adaptiveIcon: {
