@@ -3,8 +3,9 @@ import { ExpoConfig, ConfigContext } from "@expo/config";
 const CLERK_PUBLISHABLE_KEY = "pk_test_cmVsYXhpbmctd2VyZXdvbGYtOTcuY2xlcmsuYWNjb3VudHMuZGV2JA";
 
 const defineConfig = (_ctx: ConfigContext): ExpoConfig => ({
-  name: "expo",
-  slug: "expo",
+  name: "childcare",
+  slug: "childcare",
+  scheme: "childcare",
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/icon.png",
@@ -20,7 +21,8 @@ const defineConfig = (_ctx: ConfigContext): ExpoConfig => ({
   assetBundlePatterns: ["**/*"],
   ios: {
     supportsTablet: true,
-    bundleIdentifier: "your.bundle.identifier",
+    bundleIdentifier: "com.troyizzle.daycare",
+    buildNumber: "26.0.0"
   },
   android: {
     adaptiveIcon: {
@@ -30,7 +32,7 @@ const defineConfig = (_ctx: ConfigContext): ExpoConfig => ({
   },
   extra: {
     eas: {
-      projectId: "your-project-id",
+      projectId: "60f08b66-4931-4110-8583-3275f751e295",
     },
     CLERK_PUBLISHABLE_KEY,
   },
