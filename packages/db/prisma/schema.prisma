@@ -2,16 +2,118 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("POSTGRES_URL")
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model Classroom {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+
+  teachers ClassroomTeachers[]
+  students ClassroomStudents[]
+}
+
+model ClassroomTeachers {
+  id          String    @id @default(cuid())
+  classroom   Classroom @relation(fields: [classroomId], references: [id])
+  classroomId String
+  teacherId   String
+  createdAt   DateTime  @default(now())
+
+  @@unique([classroomId, teacherId])
+}
+
+model ClassroomStudents {
+  id          String    @id @default(cuid())
+  classroom   Classroom @relation(fields: [classroomId], references: [id])
+  classroomId String
+  student     Student   @relation(fields: [studentId], references: [id])
+  studentId   String
+  createdAt   DateTime  @default(now())
+
+  @@unique([classroomId, studentId])
+}
+
+model Student {
+  id             String               @id @default(cuid())
+  firstName      String
+  lastName       String
+  dob            DateTime
+  profilePicture String
+  createdAt      DateTime             @default(now())
+  actionLogs     StudentActionLog[]
+  classrooms     ClassroomStudents[]
+  parents        StudentParent[]
+  contactInfos   ContactInformation[]
+}
+
+model StudentParent {
+  id        String   @id @default(cuid())
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  parentId  String
+  createdAt DateTime @default(now())
+
+  @@unique([studentId, parentId])
+}
+
+model Action {
+  id               String             @id @default(cuid())
+  name             String             @unique
+  createdAt        DateTime           @default(now())
+  StudentActionLog StudentActionLog[]
+}
+
+model StudentActionLog {
+  id        String   @id @default(cuid())
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  action    Action   @relation(fields: [actionId], references: [id])
+  actionId  String
+  teacherId String
+  notes     String?
+  createdAt DateTime @default(now())
+  postedAt  DateTime
+}
+
+model Role {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  createdAt DateTime   @default(now())
+  UserRole  UserRole[]
+}
+
+model UserRole {
+  id        String   @id @default(cuid())
+  userId    String
+  role      Role     @relation(fields: [roleId], references: [id])
+  roleId    String
+  createdAt DateTime @default(now())
+
+  @@unique([userId, roleId])
+}
+
+model ContactInformation {
+  id           String   @id @default(cuid())
+  firstName    String
+  lastName     String
+  phone        String
+  email        String
+  relationship String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  studentId    String
+  student      Student  @relation(fields: [studentId], references: [id])
 }
 
 model UserPushToken {
-  id        String  @id @default(cuid())
+  id        String   @id @default(cuid())
   userId    String
   pushToken String
   createdAt DateTime @default(now())
