@@ -9,12 +9,16 @@
       "inputs": ["prisma/schema.prisma"],
       "cache": false
     },
+    "db-migrate-prod": {
+      "inputs": ["prisma/schema.prisma"],
+      "cache": false
+    },
     "dev": {
       "dependsOn": ["^db-generate"],
       "cache": false
     },
     "build": {
-      "dependsOn": ["^build", "^db-generate"],
+      "dependsOn": ["^build", "^db-generate", "^db-migrate-prod"],
       "outputs": [".next/**", ".expo/**"]
     },
     "lint": {
