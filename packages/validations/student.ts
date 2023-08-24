@@ -21,3 +21,10 @@ export const studentUpdateSchema = studentNewSchema.extend({
 })
 
 export type StudentUpdateInput = z.infer<typeof studentUpdateSchema>
+
+export const studentProfilePictureSchema = z.object({
+  id: z.string(),
+  profilePicture: z.string().optional()
+})
+
+export type StudentProfilePictureInput = z.infer<typeof studentProfilePictureSchema>

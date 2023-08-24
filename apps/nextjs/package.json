@@ -59,6 +59,7 @@
     "next": "^13.1.6",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
+    "react-avatar-editor": "^13.0.0",
     "react-day-picker": "^8.8.1",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
@@ -70,6 +71,7 @@
   "devDependencies": {
     "@types/node": "^18.0.0",
     "@types/react": "^18.0.25",
+    "@types/react-avatar-editor": "^13.0.0",
     "@types/react-dom": "^18.0.9",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.28.0",

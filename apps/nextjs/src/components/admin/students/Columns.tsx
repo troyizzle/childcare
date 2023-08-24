@@ -5,9 +5,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Icons } from "@/components/Icons";
 import { Student } from "@acme/db";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import Link from "next/link";
 import { Dialog } from "@/components/ui/dialog";
 import EditStudentForm from "@/components/forms/students/Edit";
+import EditStudentPictureForm from "@/components/forms/students/EditPicture";
 
 export const columns: ColumnDef<Student>[] = [
   {
@@ -47,30 +47,32 @@ export const columns: ColumnDef<Student>[] = [
     cell: ({ row }) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const [modal, setModal] = useState(false)
+      const [pictureModal, setPictureModal] = useState(false)
       const student = row.original
 
       return (
         <Dialog open={modal} onOpenChange={setModal}>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <Icons.horizontalThreeDots className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem onClick={() => setModal(true)}>
-                Edit
-              </DropdownMenuItem>
-              <Link href={`/admin/students/${student.id}/edit/picture`}>
-                <DropdownMenuItem>
+          <Dialog open={pictureModal} onOpenChange={setPictureModal}>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Open menu</span>
+                  <Icons.horizontalThreeDots className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                <DropdownMenuItem onClick={() => setModal(true)}>
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setPictureModal(true)}>
                   Edit Picture
                 </DropdownMenuItem>
-              </Link>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          {modal && <EditStudentForm studentId={student.id} open={modal} setIsOpen={setModal} />}
+              </DropdownMenuContent>
+            </DropdownMenu>
+            {modal && <EditStudentForm studentId={student.id} open={modal} setIsOpen={setModal} />}
+            {pictureModal && <EditStudentPictureForm studentId={student.id} open={pictureModal} setIsOpen={setPictureModal} />}
+          </Dialog>
         </Dialog>
       )
     }

@@ -1,5 +1,5 @@
 import { protectedProcedure, router } from "../trpc";
-import { studentNewSchema, studentUpdateSchema } from "@acme/validations/student";
+import { studentNewSchema, studentProfilePictureSchema, studentUpdateSchema } from "@acme/validations/student";
 import { inferProcedureOutput, TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { clerkClient } from "@clerk/nextjs";
@@ -146,5 +146,17 @@ export const studentRouter = router({
           message: "There was an error creating the student action log, try again later"
         })
       }
+    }),
+  profilePicture: protectedProcedure
+    .input(studentProfilePictureSchema)
+    .mutation(async ({ ctx, input: data }) => {
+      const { id, ...rest } = data
+
+      return ctx.prisma.student.update({
+        where: { id },
+        data: {
+          ...rest
+        }
+      })
     })
 })

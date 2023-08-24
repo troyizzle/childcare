@@ -15,6 +15,7 @@ type ModalFormProps<T extends FieldValues> = {
   setIsOpen: (open: boolean) => void
   showCreateButton?: boolean
   isLoading?: boolean
+  isSubmitting?: boolean
 }
 
 export default function ModalForm<T extends FieldValues>({
@@ -27,6 +28,7 @@ export default function ModalForm<T extends FieldValues>({
   setIsOpen,
   showCreateButton = true,
   isLoading = false,
+  isSubmitting = false,
 }: ModalFormProps<T>) {
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     await form.handleSubmit(onSubmit)(event);
@@ -70,9 +72,13 @@ export default function ModalForm<T extends FieldValues>({
                 <Button
                   type="submit"
                   variant="default"
-                  disabled={form.formState.isSubmitting || !form.formState.isDirty}
+                  disabled={form.formState.isSubmitting}
                 >
-                  Submit
+                  {isSubmitting ? (
+                    <Icons.spinner className="animate-spin h-6 w-6 text-blue-500" />
+                  ) : (
+                    <span>Submit</span>
+                  )}
                 </Button>
               </DialogFooter>
             </form>
