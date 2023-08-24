@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Button, Icon, useTheme } from "@rneui/themed";
+import { Button, Icon } from "@rneui/themed";
 import { HomeScreen } from '../screens/home';
 import { SettingsScreen } from '../screens/settings';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -15,8 +15,6 @@ export type HomeScreenStackParamList = {
 const HomeScreenStackNav = createNativeStackNavigator<HomeScreenStackParamList>()
 
 function HomeScreenNavigation() {
-  const { theme: { colors } } = useTheme()
-
   return (
     <HomeScreenStackNav.Navigator>
       <HomeScreenStackNav.Screen name="Home" component={HomeScreen} options={{

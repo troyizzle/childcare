@@ -4,7 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Icons } from "@/components/Icons";
 import { Classroom } from "@acme/db";
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
 import EditClassRoomForm from "@/components/forms/classrooms/Edit";
 
 export const columns: ColumnDef<Classroom>[] = [

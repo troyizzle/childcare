@@ -1,6 +1,6 @@
 {
   "extends": "../../tsconfig.json",
-  "exclude": [],
+  "exclude": ["src/components/ui/*.ts"],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],
   "compilerOptions": {
     "jsx": "preserve",

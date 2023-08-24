@@ -18,7 +18,7 @@
       "cache": false
     },
     "build": {
-      "dependsOn": ["^build", "^db-generate", "^db-migrate-prod"],
+      "dependsOn": ["^build", "^db-generate"],
       "outputs": [".next/**", ".expo/**"]
     },
     "lint": {

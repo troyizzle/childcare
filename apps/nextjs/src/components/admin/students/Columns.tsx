@@ -6,7 +6,7 @@ import { Icons } from "@/components/Icons";
 import { Student } from "@acme/db";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
 import EditStudentForm from "@/components/forms/students/Edit";
 
 export const columns: ColumnDef<Student>[] = [

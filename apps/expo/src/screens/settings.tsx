@@ -3,6 +3,7 @@ import { Text } from "@rneui/themed"
 import ScreenWrapper from "../components/ScreenWrapper"
 
 export const SettingsScreen = () => {
+  // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
   const user = useUser().user!
 
   return (

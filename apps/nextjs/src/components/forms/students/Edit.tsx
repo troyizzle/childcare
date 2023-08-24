@@ -32,7 +32,7 @@ export default function EditStudentForm({ studentId, open, setIsOpen }: EditStud
     }
   })
 
-  const { fields: contactInfoFields, insert, replace } = useFieldArray({
+  const { fields: contactInfoFields, insert } = useFieldArray({
     control: form.control,
     name: "contactInfos"
   })
@@ -64,7 +64,7 @@ export default function EditStudentForm({ studentId, open, setIsOpen }: EditStud
     if (!studentQuery.data) return
 
     form.reset(studentQuery.data)
-  }, [studentQuery.data])
+  }, [studentQuery.data, form])
 
   return (
     <ModalForm

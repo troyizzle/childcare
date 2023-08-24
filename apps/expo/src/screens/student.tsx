@@ -11,7 +11,6 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { StudentActionLogNewInput, studentActionLogNewSchema } from "@acme/validations/student-action-log"
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { FlashList } from "@shopify/flash-list"
-import { StudentActionLog } from ".prisma/client"
 import { StudentLogsByStudentIdResponse } from "@acme/api/src/router/student"
 
 type StudentScreenProps = NativeStackScreenProps<HomeScreenStackParamList, "Student">
@@ -89,6 +88,7 @@ type LogFABProps = {
 }
 
 function LogFAB({ studentId, setActionLogModalVisible }: LogFABProps) {
+  // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
   const user = useUser().user!
   const [canAddAction, setCanAddAction] = useState(true)
 

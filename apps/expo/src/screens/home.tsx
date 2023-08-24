@@ -11,6 +11,7 @@ import { HomeScreenStackParamList } from "../navigation/DefaultNavigation";
 type HomeProps = NativeStackScreenProps<HomeScreenStackParamList, "Home">
 
 export const HomeScreen = ({ navigation }: HomeProps) => {
+  // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
   const user = useUser().user!
 
   const userQuery = trpc.user.byId.useQuery({
