@@ -7,6 +7,7 @@ import { Student } from "@acme/db";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import EditStudentForm from "@/components/forms/students/Edit";
 
 export const columns: ColumnDef<Student>[] = [
   {
@@ -69,11 +70,7 @@ export const columns: ColumnDef<Student>[] = [
               </Link>
             </DropdownMenuContent>
           </DropdownMenu>
-          <DialogContent className="overflow-y-scroll max-h-screen">
-            <DialogHeader>
-              <DialogTitle>Edit {student.firstName} {student.lastName}</DialogTitle>
-            </DialogHeader>
-          </DialogContent>
+          {modal && <EditStudentForm studentId={student.id} open={modal} setIsOpen={setModal} />}
         </Dialog>
       )
     }

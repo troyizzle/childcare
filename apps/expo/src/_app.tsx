@@ -5,18 +5,22 @@ import { SignInSignUpScreen } from "./screens/signin";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 import { tokenCache } from "./utils/cache";
 import Constants from "expo-constants";
-import { createTheme, ThemeProvider } from "@rneui/themed";
+import { createTheme, ThemeProvider, useTheme } from "@rneui/themed";
 import ColorSchemeProvider from "./contexts/ColorSchemeProvider";
 import Background from "./components/Background";
 import { NavigationContainer } from "@react-navigation/native";
 import DefaultNavigation from "./navigation/DefaultNavigation";
+import { useColorScheme } from "react-native";
+import Navigation from "./navigation/Navigation";
 
 export const App = () => {
-  const theme = createTheme();
+  const theme = createTheme({
+    mode: useColorScheme() === "dark" ? "dark" : "light"
+  });
 
   return (
-    <NavigationContainer>
-      <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
+      <Navigation>
         <ColorSchemeProvider>
           <Background>
             <ClerkProvider
@@ -35,7 +39,7 @@ export const App = () => {
             </ClerkProvider>
           </Background>
         </ColorSchemeProvider>
-      </ThemeProvider>
-    </NavigationContainer>
+      </Navigation>
+    </ThemeProvider>
   );
 };

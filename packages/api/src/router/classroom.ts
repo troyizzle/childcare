@@ -6,7 +6,6 @@ import { AppRouter } from ".";
 
 export type ClassroomByIdResponse = inferProcedureOutput<AppRouter["classroom"]["byId"]>;
 
-
 export const classroomRouter = router({
   all: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.classroom.findMany({

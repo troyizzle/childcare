@@ -11,6 +11,7 @@ export default function ColorSchemeProvider({ children }: ColorSchemeProviderPro
   const { setMode } = useThemeMode();
 
   useEffect(() => {
+    console.log("colorScheme", colorScheme);
     setMode(colorScheme == "dark" ? "dark" : "light");
   }, [colorScheme]);
 

@@ -10,9 +10,9 @@ function SidebarNavMenu() {
 
   const sidebarNavItems = [
     {
-      href: "/admin",
-      label: "Dashboard",
-      icon: <Icons.add className="h-5 w-5" />
+      href: "/admin/actions",
+      label: "Actions",
+      icon: <Icons.cloudLightning className="h-5 w-5" />
     },
     {
       href: "/admin/users",
@@ -22,12 +22,12 @@ function SidebarNavMenu() {
     {
       href: "/admin/students",
       label: "Students",
-      icon: <Icons.user className="h-5 w-5" />
+      icon: <Icons.baby className="h-5 w-5" />
     },
     {
       href: "/admin/classrooms",
       label: "Classroom",
-      icon: <Icons.store className="h-5 w-5" />
+      icon: <Icons.school className="h-5 w-5" />
     },
   ]
 

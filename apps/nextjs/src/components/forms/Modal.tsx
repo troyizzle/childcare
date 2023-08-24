@@ -46,7 +46,7 @@ export default function ModalForm<T extends FieldValues>({
         Create
       </Button>
       )}
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-[425px] overflow-y-scroll max-h-screen">
         <DialogHeader>
           <DialogTitle>{modalTitle}</DialogTitle>
           {modalDescription && (

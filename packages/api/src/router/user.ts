@@ -1,6 +1,12 @@
 import { z } from "zod";
 import { protectedProcedure, router } from "../trpc";
-import { clerkClient } from "@clerk/nextjs"
+import { clerkClient, isClerkAPIResponseError } from "@clerk/nextjs"
+import { inferProcedureOutput, TRPCError } from "@trpc/server";
+import { AppRouter } from ".";
+import { userUpdateSchema } from "@acme/validations/user"
+
+export type UserByIdResponse = inferProcedureOutput<AppRouter["user"]["byId"]>;
+export type UserAllResponse = inferProcedureOutput<AppRouter["user"]["all"]>;
 
 export const userRouter = router({
   all: protectedProcedure.query(async ({ ctx }) => {
@@ -12,12 +18,19 @@ export const userRouter = router({
       include: { role: true }
     })
 
+    const children = await ctx.prisma.studentParent.findMany({
+      where: { parentId: { in: userIds } },
+      include: { student: true }
+    })
+
     return users.map(user => {
       const roles = userRoles.filter(({ userId }) => userId === user.id).map(({ role }) => role)
+      const childrenForUser = children.filter(({ parentId }) => parentId === user.id).map(({ student }) => student)
 
       return {
         ...user,
-        roles
+        roles,
+        children: childrenForUser
       }
     })
   }),
@@ -56,6 +69,50 @@ export const userRouter = router({
         roles,
         children,
         students
+      }
+    }),
+  update: protectedProcedure
+    .input(userUpdateSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { roles, children, ...clerkInput } = input
+      try {
+        const user = await clerkClient.users.updateUser(input.id, clerkInput)
+
+        await ctx.prisma.$transaction(async (tx) => {
+          await tx.userRole.deleteMany({
+            where: { userId: user.id }
+          })
+
+          await tx.userRole.createMany({
+            data: roles.map(role => ({
+              userId: user.id,
+              roleId: role
+            })
+            )
+          })
+
+          await tx.studentParent.deleteMany({
+            where: { parentId: user.id }
+          })
+
+          await tx.studentParent.createMany({
+            data: children.map(child => ({
+              parentId: user.id,
+              studentId: child
+            }))
+          })
+        })
+
+        return user
+      } catch (e) {
+        if (isClerkAPIResponseError(e)) {
+          if (e.status === 404) {
+            throw new TRPCError({
+              code: "NOT_FOUND",
+              message: "User not found"
+            })
+          }
+        }
       }
     })
 })

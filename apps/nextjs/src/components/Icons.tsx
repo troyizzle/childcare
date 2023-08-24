@@ -1,6 +1,7 @@
 import {
   AlarmClock,
   AlertTriangle,
+  Baby,
   BarChart3,
   CalendarDays,
   Car,
@@ -25,6 +26,7 @@ import {
   Footprints,
   HardHat,
   Image,
+  CloudLightning,
   Loader2,
   LogOut,
   Menu,
@@ -37,6 +39,7 @@ import {
   Plus,
   PlusCircle,
   RefreshCw,
+  School,
   Search,
   Send,
   Settings,
@@ -58,6 +61,8 @@ import {
 } from "lucide-react"
 
 export const Icons = {
+  school: School,
+  baby: Baby,
   sun: SunMedium,
   moon: Moon,
   twitter: Twitter,
@@ -112,6 +117,7 @@ export const Icons = {
   placeholder: Image,
   clothing: Shirt,
   shoes: Footprints,
+  cloudLightning: CloudLightning,
   accessories: HardHat,
   logo: (props: LucideProps) => (
     <svg

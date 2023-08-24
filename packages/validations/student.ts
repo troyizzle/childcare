@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { contactInformationSchema } from "./contact-information"
 
 export const studentNewSchema = z.object({
   firstName: z.string({
@@ -13,3 +14,10 @@ export const studentNewSchema = z.object({
 })
 
 export type StudentNewInput = z.infer<typeof studentNewSchema>
+
+export const studentUpdateSchema = studentNewSchema.extend({
+  id: z.string(),
+  contactInfos: z.array(contactInformationSchema)
+})
+
+export type StudentUpdateInput = z.infer<typeof studentUpdateSchema>
