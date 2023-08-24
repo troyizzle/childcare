@@ -55,8 +55,8 @@ export default function EditClassRoomForm({ classroom, open, setIsOpen }: EditCl
     resolver: zodResolver(classroomUpdateSchema),
     defaultValues: {
       ...classroom,
-      teachers: classroomQuery.data?.teachers.map((teacher) => teacher.id) || [],
-      students: classroomQuery.data?.students.map((student) => student.id) || []
+      teachers: classroomQuery.data?.teachers.map((teacher) => teacher.teacherId) || [],
+      students: classroomQuery.data?.students.map((student) => student.studentId) || []
     }
   })
 
