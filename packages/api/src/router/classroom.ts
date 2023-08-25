@@ -10,7 +10,7 @@ export const classroomRouter = router({
   all: protectedProcedure.query(({ ctx }) => {
     return ctx.prisma.classroom.findMany({
       orderBy: {
-        createdAt: "desc"
+        name: "asc"
       }
     })
   }),

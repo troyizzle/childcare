@@ -31,6 +31,8 @@ export default function EditClassRoomForm({ classroom, open, setIsOpen }: EditCl
   const { mutate } = trpc.classroom.update.useMutation({
     onSuccess: async () => {
       await ctx.classroom.all.invalidate();
+      await ctx.classroom.byId.invalidate({ id: classroom.id })
+
       setIsOpen(false)
       toast({
         title: "Class updated",
