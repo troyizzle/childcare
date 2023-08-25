@@ -33,7 +33,7 @@ function SidebarNavMenu() {
 
   return (
     <nav
-      className="flex space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1"
+      className="flex flex-row flex-wrap sm:justify-between md:space-x-2 lg:flex-col lg:space-x-0 lg:space-y-1"
     >
       {sidebarNavItems.map((item) => (
         <Link
@@ -64,12 +64,12 @@ export default function AdminLayout({ title, children, createForm }: AdminLayout
   return (
     <>
       <Navbar />
-      <div className="space-y-6 p-10 pb-16">
+      <div className="space-y-6 sm:mx-auto md:p-10 pb-16">
         <div className="flex flex-col space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0">
-          <aside className="-mx-4 lg:w-1/6">
+          <aside className="lg:w-1/6 sm:w-[215px]">
             <SidebarNavMenu />
           </aside>
-          <div className="flex-1">
+          <div className="flex-1 sm:m-4">
             <div className="flex justify-between items-center">
               <h1 className="text-3xl font-bold">{title}</h1>
               {createForm && createForm}
@@ -81,4 +81,3 @@ export default function AdminLayout({ title, children, createForm }: AdminLayout
     </>
   )
 }
-
