@@ -1,12 +1,12 @@
 import { Student } from ".prisma/client"
 import { UserByIdResponse } from "@acme/api/src/router/user"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { Avatar, ListItem } from "@rneui/themed"
+import { Avatar, ListItem, Text } from "@rneui/themed"
 import { FlashList } from "@shopify/flash-list"
 import { Dimensions, TouchableOpacity, View } from "react-native"
 import { HomeScreenStackParamList } from "../navigation/DefaultNavigation"
 
-type StudentNavigation = NativeStackScreenProps<HomeScreenStackParamList, "Main">['navigation']
+type StudentNavigation = NativeStackScreenProps<HomeScreenStackParamList, "Home">['navigation']
 
 type StudentDisplayProps = {
   user: UserByIdResponse
@@ -14,11 +14,21 @@ type StudentDisplayProps = {
 }
 
 export default function StudentDisplay({ user, navigation }: StudentDisplayProps) {
-  return (
-    <View style={{ height: 200, width: Dimensions.get("screen").width }}>
-      <ChildrenFlashList data={user.students.map((c) => c)} navigation={navigation} />
-    </View>
-  )
+  const studentsCombined = user.children.map((c) => c.student).concat(user.students.map((s) => s))
+
+  if (studentsCombined.length > 0) {
+    return (
+      <View style={{ height: 200, width: Dimensions.get("screen").width }}>
+        <ChildrenFlashList data={studentsCombined} navigation={navigation} />
+      </View>
+    )
+  } else {
+    return (
+      <View className="mt-5">
+        <Text h4>You don't have any children or students, please reach out.</Text>
+      </View>
+    )
+  }
 }
 
 type ChildrenFlashListProps = {
