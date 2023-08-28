@@ -47,6 +47,7 @@ export const columns: ColumnDef<Student>[] = [
     cell: ({ row }) => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const [modal, setModal] = useState(false)
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const [pictureModal, setPictureModal] = useState(false)
       const student = row.original
 
