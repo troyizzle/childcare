@@ -70,7 +70,7 @@ export const StudentScreen = ({ route }: StudentScreenProps) => {
             data={studentLogQuery.data}
             estimatedItemSize={20}
             renderItem={({ item: log }) => (
-              <StudentActionLogItem log={log} />
+              <StudentActionLogItem studentLog={log} />
             )}
           />
         </View>
@@ -239,35 +239,35 @@ function NewActionForm({ studentId, modalVisible, setModalVisible }: NewActionFo
 
 
 type StudentActionLogItemProps = {
-  log: StudentActionLogType
+  studentLog: StudentActionLogType
 }
 
-function StudentActionLogItem({ log }: StudentActionLogItemProps) {
+function StudentActionLogItem({ studentLog }: StudentActionLogItemProps) {
   const [expanded, setExpanded] = useState(false)
 
   return (
     <ListItem.Accordion
-      noIcon={!log.notes}
+      noIcon={!studentLog.notes}
       bottomDivider
       content={
         <ListItem.Content>
           <ListItem.Title>
-            {formattedLogName(log)}
+            {formattedLogName(studentLog)}
           </ListItem.Title>
           <ListItem.Subtitle>
-            {log.teacher?.firstName} {log.teacher?.lastName}
+            {studentLog.teacher?.firstName} {studentLog.teacher?.lastName}
           </ListItem.Subtitle>
         </ListItem.Content>
       }
       isExpanded={expanded}
-      onPress={() => !log.notes ? null : setExpanded(!expanded)}
+      onPress={() => !studentLog.notes ? null : setExpanded(!expanded)}
     >
       <ListItem
         bottomDivider
       >
         <ListItem.Content>
           <ListItem.Title>
-            {log.notes}
+            {studentLog.notes}
           </ListItem.Title>
         </ListItem.Content>
       </ListItem>

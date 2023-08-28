@@ -1,14 +1,25 @@
-import { useUser } from "@clerk/clerk-expo"
-import { Text } from "@rneui/themed"
+import {  Card, ListItem } from "@rneui/themed"
+import { View } from "react-native"
 import ScreenWrapper from "../components/ScreenWrapper"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { ProfileScreenStackParamList } from "../navigation/DefaultNavigation"
 
-export const SettingsScreen = () => {
+type SettingsScreenProps = NativeStackScreenProps<ProfileScreenStackParamList, "Settings">
+
+export const SettingsScreen = ({ navigation }: SettingsScreenProps) => {
   // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
-  const user = useUser().user!
 
   return (
     <ScreenWrapper>
-      <Text h1>{user.fullName}</Text>
+      <View className="mt-4">
+        <Card>
+          <ListItem onPress={() => navigation.navigate("Appearance")}>
+            <ListItem.Content>
+              <ListItem.Title>Appearance</ListItem.Title>
+            </ListItem.Content>
+          </ListItem>
+        </Card>
+      </View>
     </ScreenWrapper>
   )
 }
