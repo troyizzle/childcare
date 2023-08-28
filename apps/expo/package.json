@@ -16,6 +16,7 @@
         "@acme/tailwind-config": "*",
         "@acme/validations": "*",
         "@clerk/clerk-expo": "^0.17.7",
+        "@react-native-async-storage/async-storage": "^1.19.3",
         "@react-native-community/datetimepicker": "^7.4.2",
         "@react-navigation/bottom-tabs": "^6.5.8",
         "@react-navigation/drawer": "^6.6.3",
