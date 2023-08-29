@@ -66,11 +66,8 @@ function ContactInfoCard({ contactInfo }: ContactInfoCardProps) {
         }}
       >
         <Card.Title h4>{contactInfo.firstName} {contactInfo.lastName}</Card.Title>
-        <Text className="text-gray-500 text-center font-bold m-4">
+        <Text h4 style={{ textAlign: 'center', fontWeight: "500" }}>
           {contactInfo.relationship}
-        </Text>
-        <Text className="text-gray-500 text-center font-bold m-4">
-          {contactInfo.phone}
         </Text>
         <Card.Divider />
         <View className="flex flex-row items-center justify-between">
@@ -80,6 +77,7 @@ function ContactInfoCard({ contactInfo }: ContactInfoCardProps) {
               type="clear"
               size="lg"
               className="p-4"
+              onPress={action.onPress}
               >
                 <Icon name={action.icon} size={24} />
               </Button>
