@@ -10,7 +10,11 @@
     "preview": {
       "distribution": "internal"
     },
-    "production": {}
+    "production": {
+      "env": {
+        "ANDROID_SDK_ROOT": "/Users/troyunderwood/Library/Android/sdk"
+      }
+    }
   },
   "submit": {
     "production": {}
