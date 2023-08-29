@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Avatar, Button, Card, FAB, Icon, Input, ListItem, Text, useTheme } from "@rneui/themed"
 import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { ActivityIndicator, Alert, Modal, useColorScheme, View } from "react-native"
+import { ActivityIndicator, Alert, Modal, Platform, useColorScheme, View } from "react-native"
 import ScreenWrapper from "../components/ScreenWrapper"
 import { HomeScreenStackParamList } from "../navigation/DefaultNavigation"
 import { trpc } from "../utils/trpc"
@@ -17,6 +17,7 @@ type StudentScreenProps = NativeStackScreenProps<HomeScreenStackParamList, "Stud
 type StudentActionLogType = StudentLogsByStudentIdResponse[number]
 
 export const StudentScreen = ({ route }: StudentScreenProps) => {
+  const [showDatePicker, setShowDatePicker] = useState(Platform.OS === "ios")
   const [actionLogModalVisible, setActionLogModalVisible] = useState(false)
   const [chosenDate, setChosenDate] = useState(new Date())
 
@@ -38,18 +39,31 @@ export const StudentScreen = ({ route }: StudentScreenProps) => {
         <View className="flex flex-col grow ml-4">
           <Text h1>{route.params.name}</Text>
           <View className="flex flex-row items-center mt-2">
-            <DateTimePicker
-              mode="date"
-              value={chosenDate}
-              timeZoneOffsetInSeconds={3600}
-              onChange={(_event, selectedDate) => {
-                if (selectedDate) {
-                  setChosenDate(selectedDate)
-                  studentLogQuery.refetch()
-                }
-              }}
-              themeVariant={useColorScheme() === "dark" ? "dark" : "light"}
+          {Platform.OS === "android" && (
+            <Button
+              onPress={() => setShowDatePicker(true)}
+              size="sm"
+              title="Change date"
             />
+            )}
+            {showDatePicker && (
+              <DateTimePicker
+                mode="date"
+                display="default"
+                value={chosenDate}
+                onChange={(_event, selectedDate) => {
+                  if (selectedDate) {
+                    setChosenDate(selectedDate)
+                    studentLogQuery.refetch()
+                    setShowDatePicker(false)
+                  } else {
+                    setShowDatePicker(false)
+                  }
+                }}
+                onTouchCancel={() => setShowDatePicker(false)}
+                onTouchEnd={() => setShowDatePicker(false)}
+              />
+            )}
           </View>
         </View>
       </View>
