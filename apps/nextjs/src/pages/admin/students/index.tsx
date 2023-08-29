@@ -6,6 +6,7 @@ import AdminLayout from "@/layouts/Admin";
 import { trpc } from "@/utils/trpc";
 import { GetServerSideProps } from "next"
 import { getAuth } from "@clerk/nextjs/server"
+import { prisma } from "@acme/db";
 
 export default function Page() {
   const studentQuery = trpc.student.all.useQuery(undefined, {
@@ -34,7 +35,7 @@ export const getServerSideProps: GetServerSideProps<{ userId: string }> = async 
     }
   }
 
-  const roles = await prisma?.userRole.findMany({
+  const roles = await prisma.userRole.findMany({
     where: { userId: userId },
     select: {
       role: true
