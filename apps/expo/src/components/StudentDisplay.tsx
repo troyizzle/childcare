@@ -14,11 +14,21 @@ type StudentDisplayProps = {
 }
 
 export default function StudentDisplay({ user, navigation }: StudentDisplayProps) {
-  const studentsCombined = user.children.map((c) => c.student).concat(user.students.map((s) => s))
+  const studentsMap = new Map();
+
+  user.children.forEach((child) => {
+    studentsMap.set(child.studentId, child);
+  });
+
+  user.students.forEach((student) => {
+    studentsMap.set(student.id, student);
+  });
+
+  const studentsCombined = Array.from(studentsMap.values());
 
   if (studentsCombined.length > 0) {
     return (
-      <View style={{ height: 200, width: Dimensions.get("screen").width }}>
+      <View style={{ height: Dimensions.get("screen").height, width: Dimensions.get("screen").width }}>
         <ChildrenFlashList data={studentsCombined} navigation={navigation} />
       </View>
     )
