@@ -12,6 +12,7 @@ import { StudentActionLogNewInput, studentActionLogNewSchema } from "@acme/valid
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { FlashList } from "@shopify/flash-list"
 import { StudentLogsByStudentIdResponse } from "@acme/api/src/router/student"
+import { useColorSchemeContext } from "../contexts/ColorSchemeProvider"
 
 type StudentScreenProps = NativeStackScreenProps<HomeScreenStackParamList, "Student">
 type StudentActionLogType = StudentLogsByStudentIdResponse[number]
@@ -20,6 +21,7 @@ export const StudentScreen = ({ route }: StudentScreenProps) => {
   const [showDatePicker, setShowDatePicker] = useState(Platform.OS === "ios")
   const [actionLogModalVisible, setActionLogModalVisible] = useState(false)
   const [chosenDate, setChosenDate] = useState(new Date())
+  const { themeMode } = useColorSchemeContext()
 
   const { studentId } = route.params
 
@@ -51,17 +53,17 @@ export const StudentScreen = ({ route }: StudentScreenProps) => {
                 mode="date"
                 display="default"
                 value={chosenDate}
+                themeVariant={themeMode}
                 onChange={(_event, selectedDate) => {
                   if (selectedDate) {
                     setChosenDate(selectedDate)
                     studentLogQuery.refetch()
-                    setShowDatePicker(false)
-                  } else {
+                  }
+
+                  if(Platform.OS === "android") {
                     setShowDatePicker(false)
                   }
                 }}
-                onTouchCancel={() => setShowDatePicker(false)}
-                onTouchEnd={() => setShowDatePicker(false)}
               />
             )}
           </View>
