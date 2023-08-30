@@ -5,6 +5,7 @@ import { z } from "zod";
 import { clerkClient } from "@clerk/nextjs";
 import { studentActionLogNewSchema } from "@acme/validations/student-action-log";
 import { AppRouter } from ".";
+import { endOfDay, parseISO, startOfDay } from "date-fns";
 
 export type StudentByIdResponse = inferProcedureOutput<AppRouter["student"]["byId"]>
 export type StudentLogsByStudentIdResponse = inferProcedureOutput<AppRouter["student"]["logsByStudentId"]>
@@ -94,18 +95,16 @@ export const studentRouter = router({
   logsByStudentId: protectedProcedure.input(
     z.object({ studentId: z.string(), date: z.date() })
   ).query(async ({ ctx, input: { studentId, date } }) => {
-    const startOfDay = new Date(date)
-    startOfDay.setUTCHours(0, 0, 0, 0)
-
-    const endOfDay = new Date(date)
-    endOfDay.setUTCHours(23, 59, 59, 999)
+    const parsedDate = parseISO(date.toISOString())
+    const startDate = startOfDay(parsedDate)
+    const endDate = endOfDay(parsedDate)
 
     const logs = await ctx.prisma.studentActionLog.findMany({
       where: {
         studentId,
-        postedAt: {
-          gte: startOfDay.toISOString(),
-          lte: endOfDay.toISOString()
+        createdAt: {
+          gte: startDate,
+          lte: endDate
         }
       },
       include: {
