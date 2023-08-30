@@ -39,8 +39,8 @@ export const StudentScreen = ({ route }: StudentScreenProps) => {
           size="large"
           source={{ uri: route.params.profilePicture }}
         />
-        <View className="flex flex-col grow ml-4">
-          <Text h1>{route.params.name}</Text>
+        <View className="flex flex-col grow ml-4 mr-2 flex-wrap">
+          <Text h2>{route.params.name}</Text>
           <View className="flex flex-row items-center mt-2">
           {Platform.OS === "android" && (
             <Button
