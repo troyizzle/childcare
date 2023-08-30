@@ -9,6 +9,7 @@ import ColorSchemeProvider from "./contexts/ColorSchemeProvider";
 import Background from "./components/Background";
 import DefaultNavigation from "./navigation/DefaultNavigation";
 import Navigation from "./navigation/Navigation";
+import FlashMessage from "react-native-flash-message";
 
 export const App = () => {
   return (
@@ -31,6 +32,7 @@ export const App = () => {
           </ClerkProvider>
         </Background>
       </Navigation>
+      <FlashMessage position="bottom" />
     </ColorSchemeProvider >
   );
 };

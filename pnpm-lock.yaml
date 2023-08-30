@@ -126,6 +126,9 @@ importers:
       react-native:
         specifier: 0.71.8
         version: 0.71.8(@babel/core@7.20.5)(@babel/preset-env@7.20.2)(react@18.2.0)
+      react-native-flash-message:
+        specifier: ^0.4.2
+        version: 0.4.2(prop-types@15.8.1)(react-native@0.71.8)(react@18.2.0)
       react-native-gesture-handler:
         specifier: ^2.9.0
         version: 2.9.0(react-native@0.71.8)(react@18.2.0)
@@ -10638,6 +10641,19 @@ packages:
       - supports-color
     dev: false
 
+  /react-native-flash-message@0.4.2(prop-types@15.8.1)(react-native@0.71.8)(react@18.2.0):
+    resolution: {integrity: sha512-YvdXRW9AGMTI99S3DJZhLO0mbk/ehKv/UQf4/Df+3dtGi8DlkidRbyqCQZk1WMtZ7rN85PMTGr/xEI9CF9z0YA==}
+    peerDependencies:
+      prop-types: ^15.0 || ^16.0
+      react: '*'
+      react-native: '*'
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-native: 0.71.8(@babel/core@7.20.5)(@babel/preset-env@7.20.2)(react@18.2.0)
+      react-native-iphone-screen-helper: 2.0.3(react-native@0.71.8)
+    dev: false
+
   /react-native-gesture-handler@2.9.0(react-native@0.71.8)(react@18.2.0):
     resolution: {integrity: sha512-a0BcH3Qb1tgVqUutc6d3VuWQkI1AM3+fJx8dkxzZs9t06qA27QgURYFoklpabuWpsUTzuKRpxleykp25E8m7tg==}
     peerDependencies:
@@ -10655,6 +10671,14 @@ packages:
 
   /react-native-gradle-plugin@0.71.19:
     resolution: {integrity: sha512-1dVk9NwhoyKHCSxcrM6vY6cxmojeATsBobDicX0ZKr7DgUF2cBQRTKsimQFvzH8XhOVXyH8p4HyDSZNIFI8OlQ==}
+    dev: false
+
+  /react-native-iphone-screen-helper@2.0.3(react-native@0.71.8):
+    resolution: {integrity: sha512-gbSnV0iYWQ3hne3inYoueatSJL/Un49biIkHLGKsm7J7QjFhL+/WSPB1sZhQ87lNIANwFh33nvxcjixxR4T+NQ==}
+    peerDependencies:
+      react-native: '>=0.42.0'
+    dependencies:
+      react-native: 0.71.8(@babel/core@7.20.5)(@babel/preset-env@7.20.2)(react@18.2.0)
     dev: false
 
   /react-native-ratings@8.1.0(react-native@0.71.8)(react@18.2.0):

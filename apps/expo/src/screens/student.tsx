@@ -13,6 +13,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { FlashList } from "@shopify/flash-list"
 import { StudentLogsByStudentIdResponse } from "@acme/api/src/router/student"
 import { useColorSchemeContext } from "../contexts/ColorSchemeProvider"
+import { showMessage } from "react-native-flash-message"
 
 type StudentScreenProps = NativeStackScreenProps<HomeScreenStackParamList, "Student">
 type StudentActionLogType = StudentLogsByStudentIdResponse[number]
@@ -164,6 +165,10 @@ function NewActionForm({ studentId, modalVisible, setModalVisible }: NewActionFo
     onSuccess: async () => {
       setModalVisible(false)
       await utils.student.logsByStudentId.invalidate()
+      showMessage({
+        message: "Action was successfully logged",
+        type: "success"
+      })
     },
     onError: (error) => {
       Alert.alert("Error", error.message)
