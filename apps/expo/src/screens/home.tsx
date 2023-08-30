@@ -11,15 +11,27 @@ import { HomeScreenStackParamList } from "../navigation/DefaultNavigation";
 type HomeProps = NativeStackScreenProps<HomeScreenStackParamList, "Home">
 
 export const HomeScreen = ({ navigation }: HomeProps) => {
-  // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
-  const user = useUser().user!
+  const { user } = useUser()
+  const { theme: { colors } } = useTheme()
 
   const { data, isLoading, refetch, isRefetching } = trpc.user.byId.useQuery({
-    id: user.id
+    id: user?.id as string
+  }, {
+    enabled: !!user?.id
   })
 
+  if (!user) {
+    return (
+      <ScreenWrapper>
+        <View className="m-4">
+          <Text h1>Home</Text>
+          <Text>You are not logged in.</Text>
+        </View>
+      </ScreenWrapper>
+    )
+  }
 
-  const { theme: { colors } } = useTheme()
+
 
   return (
     <ScreenWrapper>

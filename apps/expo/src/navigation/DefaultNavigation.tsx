@@ -86,8 +86,11 @@ export type DefaultStackParamList = {
 const Tab = createBottomTabNavigator<DefaultStackParamList>();
 
 export default function DefaultNavigation() {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const user = useUser().user!
+  const { user } = useUser()
+
+  if (!user) {
+    return null
+  }
 
   return (
     <Tab.Navigator

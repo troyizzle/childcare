@@ -105,11 +105,12 @@ type LogFABProps = {
 }
 
 function LogFAB({ studentId, setActionLogModalVisible }: LogFABProps) {
-  // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
-  const user = useUser().user!
   const [canAddAction, setCanAddAction] = useState(true)
+  const  { user } = useUser()
 
-  const userQuery = trpc.user.byId.useQuery({ id: user.id })
+  const userQuery = trpc.user.byId.useQuery({ id: user.id as string }, {
+    enabled: !!user?.id
+  })
 
   useEffect(() => {
     if (!userQuery.data) return
@@ -129,6 +130,10 @@ function LogFAB({ studentId, setActionLogModalVisible }: LogFABProps) {
       }
     }
   }, [userQuery.data])
+
+  if (!user) {
+    return null
+  }
 
   if (!canAddAction) return null
 

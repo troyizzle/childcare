@@ -6,11 +6,15 @@ import { trpc } from "../utils/trpc"
 
 
 export const ProfileScreen = () => {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const user = useUser().user!
+  const { user } = useUser()
   const { signOut } = useAuth()
-  const userData = trpc.user.byId.useQuery({ id: user.id })
+  const userData = trpc.user.byId.useQuery({ id: user?.id as string }, {
+    enabled: !!user?.id
+  })
 
+  if (!user) {
+    return null
+  }
 
   return (
     <ScreenWrapper>
