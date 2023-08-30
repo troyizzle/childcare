@@ -15,6 +15,7 @@ export default function NewActionForm() {
 
   const { mutate } = trpc.action.create.useMutation({
     onSuccess: async () => {
+      form.reset()
       setIsOpen(false)
       await ctx.invalidate()
 
