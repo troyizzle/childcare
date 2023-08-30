@@ -13,14 +13,14 @@ export const userRouter = router({
     const users = await clerkClient.users.getUserList()
     const userIds = users.map(({ id }) => id)
 
-    const userRoles = await ctx.prisma.userRole.findMany({
-      where: { userId: { in: userIds } },
-      include: { role: true }
-    })
-
     const children = await ctx.prisma.studentParent.findMany({
       where: { parentId: { in: userIds } },
       include: { student: true }
+    })
+
+    const userRoles = await ctx.prisma.userRole.findMany({
+      where: { userId: { in: userIds } },
+      include: { role: true }
     })
 
     return users.map(user => {
