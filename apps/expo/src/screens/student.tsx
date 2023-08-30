@@ -3,7 +3,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { Avatar, Button, Card, FAB, Icon, Input, ListItem, Text, useTheme } from "@rneui/themed"
 import { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { ActivityIndicator, Alert, Modal, Platform, useColorScheme, View } from "react-native"
+import { ActivityIndicator, Alert, Modal, Platform, View } from "react-native"
 import ScreenWrapper from "../components/ScreenWrapper"
 import { HomeScreenStackParamList } from "../navigation/DefaultNavigation"
 import { trpc } from "../utils/trpc"
@@ -28,7 +28,7 @@ export const StudentScreen = ({ route }: StudentScreenProps) => {
 
   const studentLogQuery = trpc.student.logsByStudentId.useQuery({
     studentId,
-    date: new Date(chosenDate.getTime() - (chosenDate.getTimezoneOffset() ?? 0) * 60000)
+    date: new Date(chosenDate)
   })
 
   return (
