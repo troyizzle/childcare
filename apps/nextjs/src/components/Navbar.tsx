@@ -42,12 +42,23 @@ function UserDropdownMenu({ user }: UserDropdownMenuProps) {
       <DropdownMenuTrigger asChild>
         <Button variant="secondary" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={user.profileImageUrl ?? "some gravatar picture"} alt={user.username ?? ""} />
+            <AvatarImage src={user.imageUrl ?? "some gravatar picture"} alt={user.username ?? ""} />
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56" align="end">
         <DropdownMenuLabel>{user.username}</DropdownMenuLabel>
+        {user.publicMetadata?.roles?.includes("Admin") && (
+          <DropdownMenuItem asChild className="w-full">
+            <Link href="/admin">
+              <Icons.settings
+                className="mr-2 h-4 w-4"
+                aria-hidden="true"
+              />
+              Admin
+            </Link>
+          </DropdownMenuItem>
+        )}
 
         <DropdownMenuItem asChild className="w-full">
           <Button className="" variant="ghost" onClick={() => void signOut()}>
@@ -77,7 +88,7 @@ export default function Navbar() {
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
-          <ThemeToggler />
+              <ThemeToggler />
             {user && (
               <UserDropdownMenu user={user} />
             )}
