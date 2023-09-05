@@ -78,6 +78,7 @@ export const userRouter = router({
       try {
         const user = await clerkClient.users.updateUser(input.id, clerkInput)
 
+
         await ctx.prisma.$transaction(async (tx) => {
           await tx.userRole.deleteMany({
             where: { userId: user.id }
@@ -87,8 +88,7 @@ export const userRouter = router({
             data: roles.map(role => ({
               userId: user.id,
               roleId: role
-            })
-            )
+            }))
           })
 
           await tx.studentParent.deleteMany({
@@ -101,6 +101,17 @@ export const userRouter = router({
               studentId: child
             }))
           })
+        })
+
+        const userRoles = await ctx.prisma.userRole.findMany({
+          where: { userId: user.id },
+          include: { role: true }
+        })
+
+        await clerkClient.users.updateUserMetadata(input.id, {
+          publicMetadata: {
+            roles: userRoles.map(({ role }) => role.name)
+          }
         })
 
         return user
