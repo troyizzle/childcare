@@ -16,20 +16,31 @@ function ThemeToggler() {
   const { setTheme, theme } = useTheme()
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-    >
-      <Icons.sun
-        className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-        aria-hidden="true"
-      />
-      <Icons.moon
-        className="h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-        aria-hidden="true"
-      />
-    </Button>
+    <>
+      {theme === 'light' ? (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setTheme("dark")}
+        >
+          <Icons.sun
+            className="h-5 w-5"
+            aria-hidden="true"
+          />
+        </Button>
+      ) : (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setTheme("light")}
+        >
+          <Icons.moon
+            className="h-5 w-5"
+            aria-hidden="true"
+          />
+        </Button>
+      )}
+    </>
   )
 }
 
@@ -67,9 +78,11 @@ export default function Navbar() {
   const { user } = useUser()
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
+    <header className="sticky top-0 z-40 w-full bg-background">
       <div className="container flex h-16 items-center">
-        <MobileNav />
+        <div className="block md:hidden">
+          <MobileNav />
+        </div>
         <div className="hidden gap-6 md:flex">
           <Link href="/">
             Day Care
@@ -77,7 +90,7 @@ export default function Navbar() {
         </div>
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-2">
-          <ThemeToggler />
+            <ThemeToggler />
             {user && (
               <UserDropdownMenu user={user} />
             )}
