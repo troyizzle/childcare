@@ -10,11 +10,12 @@
     "db-push": "turbo db-push",
     "db-seed": "turbo db-seed",
     "dev": "turbo dev --parallel",
+    "db-data-migrate": "turbo db-data-migrate",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo lint",
     "FIXME:lint": "turbo lint && manypkg check",
     "type-check": "turbo type-check",
-    "vercel-build": "turbo db-migrate-prod"
+    "vercel-build": "turbo db-migrate-prod && turbo db-data-migrate"
   },
   "dependencies": {
     "@manypkg/cli": "^0.19.2",

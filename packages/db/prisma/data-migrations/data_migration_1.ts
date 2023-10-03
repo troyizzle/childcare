@@ -2,7 +2,7 @@ import { prisma } from "../../"
 
 import { clerkClient } from "@clerk/nextjs"
 
-export const syncClerkUsers = async () => {
+const run = async () => {
   const users = await clerkClient.users.getUserList()
 
   users.forEach(async user => {
@@ -20,4 +20,4 @@ export const syncClerkUsers = async () => {
   })
 }
 
-syncClerkUsers()
+export default run

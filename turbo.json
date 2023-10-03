@@ -21,6 +21,10 @@
       "inputs": ["prisma/schema.prisma"],
       "cache": false
     },
+    "db-data-migrate": {
+      "inputs": ["prisma/schema.prisma"],
+      "cache": false
+    },
     "build": {
       "dependsOn": ["^build", "^db-generate"],
       "outputs": [".next/**", ".expo/**"]

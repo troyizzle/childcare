@@ -13,11 +13,11 @@ datasource db {
 }
 
 model User {
-  id    String @id @unique
-  email String @unique
+  id        String  @id @unique
+  email     String  @unique
   firstName String?
-  lastName String?
-  imageUrl String
+  lastName  String?
+  imageUrl  String
 
   pushTokens UserPushToken[]
   roles      UserRole[]
@@ -108,7 +108,7 @@ model UserRole {
   role      Role     @relation(fields: [roleId], references: [id])
   roleId    String
   createdAt DateTime @default(now())
-  User      User?     @relation(fields: [userId], references: [id])
+  User      User?    @relation(fields: [userId], references: [id])
 
   //@@unique([userId, roleId])
 }
@@ -133,4 +133,14 @@ model UserPushToken {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   User      User     @relation(fields: [userId], references: [id])
+}
+
+model DataMigration {
+  id         String    @id @default(cuid())
+  key        Int    @unique
+  filename   String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  startedAt  DateTime?
+  finishedAt DateTime?
 }

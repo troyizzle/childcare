@@ -11,19 +11,22 @@
     "db-push": "pnpm with-env prisma db push",
     "db-generate": "pnpm with-env prisma generate",
     "db-seed": "pnpm with-env prisma db seed",
-    "db-migrate-prod": "pnpm with-env prisma migrate deploy"
+    "db-migrate-prod": "pnpm with-env prisma migrate deploy",
+    "db-data-migrate": "ts-node --compilerOptions '{\"module\":\"CommonJS\"}' prisma/data-migrate.ts"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "dependencies": {
-    "@prisma/client": "^4.14.0"
+    "@prisma/client": "^4.14.0",
+    "glob": "^7.1.7"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
     "dotenv-cli": "^6.0.0",
     "prisma": "^4.14.0",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.3"
+    "typescript": "^4.9.3",
+    "@types/glob": "^7.1.4"
   }
 }

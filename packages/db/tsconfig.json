@@ -1,4 +1,4 @@
 {
   "extends": "../../tsconfig.json",
-  "include": ["index.ts", "prisma/seed.ts"]
+  "include": ["index.ts", "prisma/*.ts", "prisma/data-migrations/*.ts"]
 }
