@@ -6,10 +6,21 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+  provider          = "postgresql"
+  url               = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl         = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
   shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
+}
+
+model User {
+  id    String @id @unique
+  email String @unique
+  firstName String?
+  lastName String?
+  imageUrl String
+
+  pushTokens UserPushToken[]
+  roles      UserRole[]
 }
 
 model Classroom {
@@ -97,8 +108,9 @@ model UserRole {
   role      Role     @relation(fields: [roleId], references: [id])
   roleId    String
   createdAt DateTime @default(now())
+  User      User?     @relation(fields: [userId], references: [id])
 
-  @@unique([userId, roleId])
+  //@@unique([userId, roleId])
 }
 
 model ContactInformation {
@@ -120,4 +132,5 @@ model UserPushToken {
   pushToken String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  User      User     @relation(fields: [userId], references: [id])
 }
