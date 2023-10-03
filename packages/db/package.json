@@ -11,7 +11,7 @@
     "db-push": "pnpm with-env prisma db push",
     "db-generate": "pnpm with-env prisma generate",
     "db-seed": "pnpm with-env prisma db seed",
-    "db-migrate-prod": "pnpm with-env prisma migrate deploy",
+    "db-migrate-prod": "pnpm with-env prisma generate && prisma db push",
     "db-data-migrate": "ts-node --compilerOptions '{\"module\":\"CommonJS\"}' prisma/data-migrate.ts"
   },
   "prisma": {
